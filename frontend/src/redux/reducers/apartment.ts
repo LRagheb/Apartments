@@ -4,6 +4,7 @@ import { Apartment } from '../../types/apartment';
 
 interface ApartmentState {
   list: Array<Apartment>;
+  currentApartment: Apartment | null;
   total: number;
   isLoading: boolean;
 }
@@ -17,6 +18,7 @@ const initialState: ApartmentState = {
   list: [],
   total: 0,
   isLoading: false,
+  currentApartment: null,
 };
 
 const ApartmentSlice = createSlice({
@@ -25,6 +27,7 @@ const ApartmentSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      // fetchApartments reducers
       .addCase(fetchApartments.pending, (state) => {
         state.isLoading = true;
       })
@@ -37,6 +40,34 @@ const ApartmentSlice = createSlice({
         }
       )
       .addCase(fetchApartments.rejected, (state) => {
+        state.isLoading = false;
+      })
+      // fetch apartment reducers
+      .addCase(fetchApartmentById.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        fetchApartmentById.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.currentApartment = action.payload.apartment;
+        }
+      )
+      .addCase(fetchApartmentById.rejected, (state) => {
+        state.isLoading = false;
+      })
+      // create apartment reducers
+      .addCase(createApartment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        createApartment.fulfilled,
+        (state, action: PayloadAction<Apartment>) => {
+          state.isLoading = false;
+          state.list.push(action.payload);
+        }
+      )
+      .addCase(createApartment.rejected, (state) => {
         state.isLoading = false;
       });
   },

@@ -1,0 +1,18 @@
+.apt-link {
+  text-decoration: none;
+}
+.apt-card {
+  border-radius: 8px;
+  box-shadow: none;
+  border: 1px solid #F0F0F0;
+  text-decoration: none;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+/* override MUI's buttons being uppercase letters */
+.MuiButton-root {
+  text-transform: none;
+}

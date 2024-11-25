@@ -3,7 +3,9 @@ import Apartment from '../models/apartment';
 
 const getApartments = async (req: Request, res: Response): Promise<void> => {
   try {
-    const apartments = await Apartment.find({}).exec();
+    const apartments = await Apartment.find({})
+      .select({ address: 1, location: 1, city: 1, price: 1, _id: 1 })
+      .exec();
     const total = await Apartment.countDocuments({}).exec();
     res.status(200).json({
       apartments,
@@ -34,7 +36,7 @@ const getApartment = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     // TODO: validate ObjectId
-    const apartment = await Apartment.findById({ id }).exec();
+    const apartment = await Apartment.findById(id).exec();
     if (!!apartment) {
       res.status(200).json({
         apartment,
