@@ -26,4 +26,7 @@ docker-compose down
 - Frontend: http://localhost:3001
 - Backend: http://localhost:3000
 
+## API documentation will be available at:
+http://localhost:3000/api-docs/
+
 
