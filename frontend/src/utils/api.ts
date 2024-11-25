@@ -1,6 +1,3 @@
-import axios from "axios";
-import { store } from "../redux/store";
-
 const getApiUrl = () =>
   `${
     process.env.NODE_ENV === "development"
